@@ -11,7 +11,7 @@ Default keys:
 - RCtrl, RShift (hold) - modifiers (tiny and big adjust);
 - Space (hold) + arrows: left-right - scale, up-down - height by Y axis;
 - Slash (/, hold) + arrows: left-right - rotate by Y axis, up-down - rotate by Z axis.
-- 
+
 Can hold arrows for prolong changes.
 
 Known issues: 

@@ -3,6 +3,7 @@ NoTime game - EditorAdditor
 Mod to make game modding be more comfortable.
 
 For now just for Level Editor.
+
 Move, rotate and resize selected objects by keyboard keys (with modifiers and combinations). Have a config file (will appear at *BepInEx/config*) to remap keys and change modifiers.
 
 Default keys:

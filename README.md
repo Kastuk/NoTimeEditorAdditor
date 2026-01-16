@@ -17,7 +17,6 @@ Can hold arrows for prolong changes.
 Known issues: 
 - not forget selected object after diselection, so it can still be moved without active Inspector window.
 
-===
 INSTALL
 ===
 - Download BepInEx_UnityIL2CPP_x64_6.0.0-pre.1 version from there: https://github.com/BepInEx/BepInEx/releases/tag/v6.0.0-pre.1

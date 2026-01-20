@@ -2,7 +2,7 @@ NoTime game - EditorAdditor
 ====
 Mod to make game modding be more comfortable.
 
-For now just for Level Editor.
+For now just Level Editor.
 
 Move, rotate and resize selected objects by keyboard keys (with modifiers and combinations). Have a config file (will appear at *BepInEx/config*) to remap keys and change modifiers.
 
@@ -16,6 +16,8 @@ Can hold arrows for prolong changes.
 
 Known issues: 
 - not forget selected object after diselection, so it can still be moved without active Inspector window.
+
+Credits: Thanks for **GardenXased** with SpawnMenu mod, I did follow his trail of game code modding: https://www.nexusmods.com/notime/mods/17
 
 INSTALL
 ===

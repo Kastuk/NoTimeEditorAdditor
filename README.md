@@ -18,6 +18,7 @@ Known issues:
 - not forget selected object after diselection, so it can still be moved without active Inspector window.
 
 Credits: Thanks for **GardenXased** with SpawnMenu mod, I did follow his trail of game code modding: https://www.nexusmods.com/notime/mods/17
+https://steamcommunity.com/sharedfiles/filedetails/?id=3638580806
 
 INSTALL
 ===

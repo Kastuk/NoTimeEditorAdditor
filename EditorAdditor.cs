@@ -8,11 +8,12 @@ using HarmonyLib;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using MoonSharp.Interpreter.Tree.Expressions;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace NoTimeEditorAdditorMod
 {
 
-    [BepInPlugin("com.notime.editaddit", "Editor Additor Mod", "2026.01.16")]
+    [BepInPlugin("notime.kastuk.editaddit", "Editor Additor Mod", "2026.02.13")]
     public class EditorAdditorMod : BasePlugin
     {
         public static ManualLogSource InstanceLog;
@@ -21,7 +22,7 @@ namespace NoTimeEditorAdditorMod
             EditorAdditorMod.InstanceLog = base.Log;
             Harmony harmony = new Harmony("com.notime.editaddit");
             harmony.PatchAll(typeof(EditorAdditorMod.ObjectsEditorMods));
-            InstanceLog.LogFatal("!!! SOMETHING LOADED !!!");
+            InstanceLog.LogFatal("!!! Editor Additor LOADED !!!");
             ModConfig.Bind(this);
         }
 
@@ -79,7 +80,7 @@ namespace NoTimeEditorAdditorMod
         //tiny adjusting of sliders at terrain editor (numerical values shown/enter?)
 
         //recover camera position after editor load - may place empty gameobject at exit and use it coords at load
-
+        // resort workshop list that CUstom category going up, or just move the scroll to down
 
 
 
@@ -91,6 +92,45 @@ namespace NoTimeEditorAdditorMod
             private const float timelimit = 0.8f;
 
             private static float curtime = 0f;
+
+            //public static InputField[] allinputfields;
+            //public static RectTransform rect;
+            //public static Vector3[] corners = new Vector3[4];
+
+            [HarmonyPostfix]
+            [HarmonyPatch(typeof(LevelEditor), nameof(LevelEditor.Start))]
+            public static void LevEdStartPostfix(ref LevelEditor __instance)
+            {
+                if (__instance.water != null)
+                {
+                    //__instance.water.GetComponent<Collider>().enabled = false; //let click other objects under water surface
+                    //Adjust visual level of water in editor
+                    __instance.water.transform.position = new Vector3(__instance.water.transform.position.x, __instance.water.transform.position.y - 2f, __instance.water.transform.position.z);
+                }
+
+                //allinputfields = __instance.inspector.GetComponentsInChildren<InputField>();//UnityEngine.Object.FindObjectsOfType<InputField>();
+                //rect = __instance.inspector.GetComponent<RectTransform>();
+                //rect.GetWorldCorners(corners);
+                //recover camera position after load (where to save previous position numbers? level description?)
+                //__instance.camSpawn.position = new Vector3(x,y,z);
+                //__instance.camSpawn.eulerAngles = new Vector3(x,y,z);
+            }
+
+            [HarmonyPatch(typeof(LevelEditor), nameof(LevelEditor.OpenObjectCatalogue))]
+            [HarmonyPostfix]
+            public static void LevEditOpObjCatPostfix(ref LevelEditor __instance)
+            {
+                __instance.water.GetComponent<Collider>().enabled = false;
+            }
+
+            [HarmonyPatch(typeof(LevelEditor), nameof(LevelEditor.CloseObjectCatalogue))]
+            [HarmonyPostfix]
+            public static void LevEditClsObjCatPostfix(ref LevelEditor __instance)
+            {
+                __instance.water.GetComponent<Collider>().enabled = true;
+                gb = null;
+            }
+
 
             [HarmonyPostfix]
             [HarmonyPatch(typeof(LevelEditor), nameof(LevelEditor.FindSelectedSpawned))]
@@ -112,31 +152,35 @@ namespace NoTimeEditorAdditorMod
                     //InstanceLog.LogError("Return selected object at list index: " + i + ", " + gb.name.ToString());
             }
 
-            [HarmonyPostfix]
-            [HarmonyPatch(typeof(LevelEditor), nameof(LevelEditor.Start))]
-            public static void LevEdStartPostfix(ref LevelEditor __instance)
-            {
-                if (__instance.water != null)
-                {
-                    __instance.water.GetComponent<Collider>().enabled = false; //let click other objects under water surface
-                    //Adjust visual level of water in editor
-                    __instance.water.transform.position = new Vector3(__instance.water.transform.position.x, __instance.water.transform.position.y - 2f, __instance.water.transform.position.z);
-                }
+            
 
-                //recover camera position after load (where to save previous position numbers? level description?)
-                //__instance.camSpawn.position = new Vector3(x,y,z);
-                //__instance.camSpawn.eulerAngles = new Vector3(x,y,z);
-            }
-
-            [HarmonyPatch(typeof(LevelEditor), nameof(LevelEditor.LateUpdate))]
+                [HarmonyPatch(typeof(LevelEditor), nameof(LevelEditor.LateUpdate))]
             [HarmonyPostfix]
             public static void LevEditLUpdatePostfix(ref LevelEditor __instance)
             {
-                if (gb == null)
+
+                if (gb == null || !__instance.inspector.active)//) && !Input.anyKeyDown)
                 {
                     //InstanceLog.LogError("no selected gameobject");
+					//gb = null;
                     return;
                 }
+
+                
+                //foreach (var input in allinputfields)
+                //{
+                //    if (input != null && input.isFocused)
+                //    {
+                //        return;
+                //    }
+                //}
+
+                //Vector3 mousepos = Input.mousePosition; //nope, it stop all work, as ui rectangle is quite big
+                //if (mousepos.x >= corners[0].x && mousepos.x <= corners[2].x && mousepos.y >= corners[0].y && mousepos.y <= corners[2].y)
+                //{
+                //    return;
+               //}
+
                 //GameObject gb = __instance.selectedCatalogueObject.pref; //not works
 
                 curtime += Time.deltaTime;
@@ -227,7 +271,13 @@ namespace NoTimeEditorAdditorMod
                         gb.transform.position = posit + new Vector3(-0.02f * mod, 0f, 0f);
                     }
                 }
-				__instance.UpdateInspector();
+
+                if (curtime >= timelimit && 
+                    Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow)
+                    )
+                {
+                    __instance.UpdateInspector();
+                }
                 //__instance.RefreshObjectCatalogue(); //NOTWORKS need to update values in Inspector window
                 
                 //gb = null; //wrong idea to nulify catched selected object in same update of every frame

@@ -5,15 +5,15 @@ using BepInEx;
 using BepInEx.Logging;
 using BepInEx.Unity.IL2CPP;
 using HarmonyLib;
-using Il2CppInterop.Runtime.InteropTypes.Arrays;
-using MoonSharp.Interpreter.Tree.Expressions;
+//using Il2CppInterop.Runtime.InteropTypes.Arrays;
+//using MoonSharp.Interpreter.Tree.Expressions;
 using UnityEngine;
-using UnityEngine.UI;
+//using UnityEngine.UI;
 
 namespace NoTimeEditorAdditorMod
 {
 
-    [BepInPlugin("notime.kastuk.editaddit", "Editor Additor Mod", "2026.02.13")]
+    [BepInPlugin("notime.kastuk.editaddit", "Editor Additor Mod", "2026.06.01")]
     public class EditorAdditorMod : BasePlugin
     {
         public static ManualLogSource InstanceLog;
@@ -38,6 +38,11 @@ namespace NoTimeEditorAdditorMod
             public static KeyCode RotatKey;
             public static KeyCode HeigScalKey;
 
+            public static KeyCode CamKey;
+
+            public static bool WaterLevelFix;
+            public static int WLevel;
+
             public static void Bind(EditorAdditorMod eda)
             {
 
@@ -48,7 +53,11 @@ namespace NoTimeEditorAdditorMod
                 
                 ModConfig.RotatKey = eda.Config.Bind<KeyCode>("Other Controls", "Rotation key", KeyCode.Slash, "Key to hold with arrows pressing for rotating by Y (left-right) and Z (up-down) axis").Value;
                 ModConfig.HeigScalKey = eda.Config.Bind<KeyCode>("Other Controls", "Height+Scale key", KeyCode.Space, "Key to hold with arrows pressing for changing height (up-down) and scale (left-right)").Value;
+                
+                ModConfig.CamKey = eda.Config.Bind<KeyCode>("Other Controls", "Camera key", KeyCode.End, "Key to move camera to highlighted object").Value;
 
+                ModConfig.WaterLevelFix = eda.Config.Bind<bool>("Experimentable", "Water fix switch", false, "Will attempt to adjust water level in editor").Value;
+                ModConfig.WLevel = eda.Config.Bind<int>("Experimentable", "Water fix Level", -2, "Added value").Value;
             }
         }
 
@@ -59,29 +68,30 @@ namespace NoTimeEditorAdditorMod
         //DONE*move by holding arrow keys too, but need limitation of moves per second - Time.deltaTime
         //DONE*select object not only by click on mesh, but at name in objects list too!
         //DONE*update inspector values
-        //clean last selected object at deselection to not continue adjustments?
+        //DONE*clean last selected object at deselection to not continue adjustments?
 
         //GAME FIXES
         //DONE?*water level, adjusting the visual level (-2 m)
         //DONE*remove collider of water surface to let select objects under it
-        //fix scaling of childs related to parent scale at saveload
-        //disable trees animations?
+
+        //DONE* TRY AUTOSCALE EMPTY GAME OBJECT to 1.0 at creation, and use only them for grouping, as autoscaling at world loading is what scale all child objects I suppose (order of applying params to childs after parent?)
+        //disable trees (palm, pine) animations?
         //fix scale of nature spawn sprites
-        //duplicate: fixing of the not shown copied objects outline
+        //duplicate: fixing of the not shown copied objects outline HIGHLIGHTER - its just transform location is shifted by axis Y to 100f lower!
         //duplicate: bug with not changing of values of copied object (untill saveload)
         //duplicate: bugged relative scaling at level load (double scaling at own scale values, then at parent scale value, so childs become so tiny)
+        //fix scaling of childs related to parent scale at saveload
         //duplicate: wrong placing copies of child under parent (relative to worlds origin instead of ex parent coords)
 
         //OTHER STUFF
         //scroll by mousewheel in objects window
-        //proper reorder of hierarchy of parented objects at load of level
+        //proper reorder of hierarchy of parented objects at load of level - list insert!
         //autoparenting of new placed objects after last parent selected with some switch (key pressed) + autohierarchy in list
 
         //tiny adjusting of sliders at terrain editor (numerical values shown/enter?)
 
         //recover camera position after editor load - may place empty gameobject at exit and use it coords at load
         // resort workshop list that CUstom category going up, or just move the scroll to down
-
 
 
         [HarmonyPatch]
@@ -93,6 +103,8 @@ namespace NoTimeEditorAdditorMod
 
             private static float curtime = 0f;
 
+            //public static Transform cam;
+
             //public static InputField[] allinputfields;
             //public static RectTransform rect;
             //public static Vector3[] corners = new Vector3[4];
@@ -101,11 +113,11 @@ namespace NoTimeEditorAdditorMod
             [HarmonyPatch(typeof(LevelEditor), nameof(LevelEditor.Start))]
             public static void LevEdStartPostfix(ref LevelEditor __instance)
             {
-                if (__instance.water != null)
+                if (__instance.water != null && ModConfig.WaterLevelFix)
                 {
                     //__instance.water.GetComponent<Collider>().enabled = false; //let click other objects under water surface
                     //Adjust visual level of water in editor
-                    __instance.water.transform.position = new Vector3(__instance.water.transform.position.x, __instance.water.transform.position.y - 2f, __instance.water.transform.position.z);
+                    __instance.water.transform.position = new Vector3(__instance.water.transform.position.x, __instance.water.transform.position.y + ModConfig.WLevel, __instance.water.transform.position.z);
                 }
 
                 //allinputfields = __instance.inspector.GetComponentsInChildren<InputField>();//UnityEngine.Object.FindObjectsOfType<InputField>();
@@ -158,6 +170,11 @@ namespace NoTimeEditorAdditorMod
             [HarmonyPostfix]
             public static void LevEditLUpdatePostfix(ref LevelEditor __instance)
             {
+                if (__instance.tobeplaced != null && __instance.tobeplaced.name == "_PrefEmpty")
+                {
+                    __instance.tobeplaced.transform.localScale = new Vector3(1f, 1f, 1f);
+                } //make new placed emptygameobject be at stable scale to not jam any children grouped objects under it at saveload
+
 
                 if (gb == null || !__instance.inspector.active)//) && !Input.anyKeyDown)
                 {
@@ -278,8 +295,18 @@ namespace NoTimeEditorAdditorMod
                 {
                     __instance.UpdateInspector();
                 }
+
+                if (Input.GetKeyDown(ModConfig.CamKey))
+                {
+                    if (Camera.main != null)
+                    {
+                        Camera.main.transform.position = gb.transform.position + new Vector3(0f, 3f, -5f);
+                        Camera.main.transform.LookAt(gb.transform.position);
+                    }
+                }
+
                 //__instance.RefreshObjectCatalogue(); //NOTWORKS need to update values in Inspector window
-                
+
                 //gb = null; //wrong idea to nulify catched selected object in same update of every frame
             }
         }

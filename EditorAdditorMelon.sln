@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.37027.9 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EditorAdditorMelon_", "EditorAdditorMelon_.csproj", "{B064EE91-6DE0-25A4-9966-EF676432451D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B064EE91-6DE0-25A4-9966-EF676432451D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B064EE91-6DE0-25A4-9966-EF676432451D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B064EE91-6DE0-25A4-9966-EF676432451D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B064EE91-6DE0-25A4-9966-EF676432451D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {151D52CD-57E7-45D2-B61C-4259D458C25E}
+	EndGlobalSection
+EndGlobal

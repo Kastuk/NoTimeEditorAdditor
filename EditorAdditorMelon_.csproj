@@ -1,0 +1,183 @@
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B064EE91-6DE0-25A4-9966-EF676432451D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>ClassLibrary</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>EditorAdditorMelon</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="0Harmony, Version=2.10.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>E:\Programs\Steam\steamapps\common\No Time\64-Bit\MelonLoader\net6\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>E:\Programs\Steam\steamapps\common\No Time\64-Bit\MelonLoader\Il2CppAssemblies\Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppSystem, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>E:\Programs\Steam\steamapps\common\No Time\64-Bit\MelonLoader\Il2CppAssemblies\Il2CppSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="MelonLoader">
+      <HintPath>E:\Programs\Steam\steamapps\common\No Time\64-Bit\MelonLoader\net6\MelonLoader.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="UnityEngine">
+      <HintPath>E:\Programs\Steam\steamapps\common\No Time\64-Bit\MelonLoader\Il2CppAssemblies\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>E:\Programs\Steam\steamapps\common\No Time\64-Bit\MelonLoader\Il2CppAssemblies\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>E:\Programs\Steam\steamapps\common\No Time\64-Bit\MelonLoader\Il2CppAssemblies\UnityEngine.InputLegacyModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>E:\Programs\Steam\steamapps\common\No Time\64-Bit\MelonLoader\Il2CppAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".gitattributes" />
+    <None Include=".gitignore" />
+    <None Include=".git\COMMIT_EDITMSG" />
+    <None Include=".git\config" />
+    <None Include=".git\description" />
+    <None Include=".git\FETCH_HEAD" />
+    <None Include=".git\HEAD" />
+    <None Include=".git\hooks\applypatch-msg.sample" />
+    <None Include=".git\hooks\commit-msg.sample" />
+    <None Include=".git\hooks\fsmonitor-watchman.sample" />
+    <None Include=".git\hooks\post-update.sample" />
+    <None Include=".git\hooks\pre-applypatch.sample" />
+    <None Include=".git\hooks\pre-commit.sample" />
+    <None Include=".git\hooks\pre-merge-commit.sample" />
+    <None Include=".git\hooks\pre-push.sample" />
+    <None Include=".git\hooks\pre-rebase.sample" />
+    <None Include=".git\hooks\pre-receive.sample" />
+    <None Include=".git\hooks\prepare-commit-msg.sample" />
+    <None Include=".git\hooks\push-to-checkout.sample" />
+    <None Include=".git\hooks\sendemail-validate.sample" />
+    <None Include=".git\hooks\update.sample" />
+    <None Include=".git\index" />
+    <None Include=".git\info\exclude" />
+    <None Include=".git\logs\HEAD" />
+    <None Include=".git\logs\refs\heads\master" />
+    <None Include=".git\logs\refs\remotes\origin\HEAD" />
+    <None Include=".git\logs\refs\remotes\origin\master" />
+    <None Include=".git\objects\03\02e7f98d33f85ce2e8b66a00fae5e9cecddde5" />
+    <None Include=".git\objects\03\d410d516baf7515280ac3ee617f5e42b3131df" />
+    <None Include=".git\objects\06\adef4517295280a313b45fbff9092c73d1202c" />
+    <None Include=".git\objects\09\3fbecec3c9da942d7468a495e1b2f0101b0df8" />
+    <None Include=".git\objects\0b\51d1ee7cc800082a9a6cb230d2c941d5860b3e" />
+    <None Include=".git\objects\0f\685b849f505c40b241a35a3a4fc1a24d2bbfc5" />
+    <None Include=".git\objects\1f\f0c423042b46cb1d617b81efb715defbe8054d" />
+    <None Include=".git\objects\2c\fa16a73688a9e27253f49f3ff2a65847b17706" />
+    <None Include=".git\objects\2d\296d5e2583b38046d0c17c7a9b2c4a4231450d" />
+    <None Include=".git\objects\31\819a10bafb93fd60c2185dc889d2f93f9005fc" />
+    <None Include=".git\objects\36\58abc31809eafb7a6c6b65a4227a2f50719cf2" />
+    <None Include=".git\objects\3d\550b38b68308a769c3dbb079aea1a5c60b80db" />
+    <None Include=".git\objects\46\b37499b9550a93c7daa46dfdf2edc55de662a2" />
+    <None Include=".git\objects\4d\d07560a692e16dbc527ea2bac3e2507072c1b6" />
+    <None Include=".git\objects\4e\e06777838b1756e41c8cb2bedc6deb07f89450" />
+    <None Include=".git\objects\4f\ba93e647f299f0c1d719d5f6f7660c9d4d992e" />
+    <None Include=".git\objects\53\024a557740f8cdc171655df0ebada1e80308f4" />
+    <None Include=".git\objects\55\c7332363660f48aec9906230bc6eb1e8477455" />
+    <None Include=".git\objects\55\e565a7eaf7001f93ba0e24086c2d2f48e9e80f" />
+    <None Include=".git\objects\57\48bf2fc09e2075817a16c327df5e9b90a4894a" />
+    <None Include=".git\objects\59\96a690de6c9267f43399c351b22d1b0b9f4b8c" />
+    <None Include=".git\objects\5a\80c29d815582f8f5c4b705f1f553bfaffbac8e" />
+    <None Include=".git\objects\5b\86805cebbf41df0b05ef3ca04f6380949bd7e1" />
+    <None Include=".git\objects\64\45c88cadf34630ea080551384a7a200e673998" />
+    <None Include=".git\objects\69\67769575feb191a713a6c763a968e3eea32135" />
+    <None Include=".git\objects\78\6a3357237e6f8404c3674bcf7063d91e235e76" />
+    <None Include=".git\objects\78\dd4dbc4cb86008c181d4d14ab07fe5b0657728" />
+    <None Include=".git\objects\7d\3b3aafa499aa7add6918ec4f47d989bb5aed81" />
+    <None Include=".git\objects\7d\d7954cc45d71af72ad2e78af6d2e518b4af030" />
+    <None Include=".git\objects\88\f1ebc2cde8a898d518a9b29c5fa266704daf0a" />
+    <None Include=".git\objects\8a\501a5c61cdbba8ba3a1ba93bd0562abbb7acae" />
+    <None Include=".git\objects\8c\6c84c6e9eb3e8e5a9a5fcb11e2c5bd8f39d0e8" />
+    <None Include=".git\objects\8d\2465d32d4fc5165b44475bf0a87524d049ddd3" />
+    <None Include=".git\objects\8d\81ae41a74691a48308b805906f8414105779e2" />
+    <None Include=".git\objects\94\91a2fda28342ab358eaf234e1afe0c07a53d62" />
+    <None Include=".git\objects\99\3feee4912990b9fdb3b7e5097abf35f79ffb43" />
+    <None Include=".git\objects\9d\41487c2ff20e6fd9d7507af5e34c9c90c2fb51" />
+    <None Include=".git\objects\9f\ca73b18771043eecbafe38075c31a26732e181" />
+    <None Include=".git\objects\a0\f7bddb4666e8a4fed296b09a6894e15f2e5246" />
+    <None Include=".git\objects\aa\be48b0e95ef419374198203afc4f459f54ba81" />
+    <None Include=".git\objects\ad\3e9a41098878d2d56f23f9d5272be212d94229" />
+    <None Include=".git\objects\ae\4d34c47eae8a4010e6e16674be30f783dc2df5" />
+    <None Include=".git\objects\b1\07cb09cb7c3bbbe7296b56ce4acd5fedc55587" />
+    <None Include=".git\objects\b4\fc88df033d8a31e2c25b6357d8f3e4075fb2ed" />
+    <None Include=".git\objects\bb\ca3cfa2d29251a67a7fed7e89c96cbe43a97bb" />
+    <None Include=".git\objects\c4\5504ea17f1ab827da619187855236fc8b65a9d" />
+    <None Include=".git\objects\cd\1caab6f157a8cf4f2169007b99faa7b66f10b5" />
+    <None Include=".git\objects\d8\556242227a8d19c5c94549188c8df14ebadbdd" />
+    <None Include=".git\objects\e0\9c543ce089e7cc8df6106b69c60f692d1caa38" />
+    <None Include=".git\objects\eb\0174b08ba3e9a24b55cf4b08ff0e94348ea5c4" />
+    <None Include=".git\objects\f8\364548075a8c353de8bcdb971287d9b5c26c11" />
+    <None Include=".git\ORIG_HEAD" />
+    <None Include=".git\refs\heads\master" />
+    <None Include=".git\refs\remotes\origin\HEAD" />
+    <None Include=".git\refs\remotes\origin\master" />
+    <None Include=".git\refs\tags\goodenough" />
+    <None Include=".vs\NoTImeEditorAdditions\CopilotIndices\17.14.1584.41681\CodeChunks.db" />
+    <None Include=".vs\NoTImeEditorAdditions\CopilotIndices\17.14.1584.41681\SemanticSymbols.db" />
+    <None Include=".vs\NoTImeEditorAdditions\CopilotIndices\17.14.1584.41681\SemanticSymbols.db-shm" />
+    <None Include=".vs\NoTImeEditorAdditions\CopilotIndices\17.14.1584.41681\SemanticSymbols.db-wal" />
+    <None Include=".vs\NoTImeEditorAdditions\FileContentIndex\2b55eb2e-d294-4678-bf0d-1d69267a0bb9.vsidx" />
+    <None Include=".vs\NoTImeEditorAdditions\FileContentIndex\b5e6bdbc-e8fc-4f47-b7ff-fe7c0a786d18.vsidx" />
+    <None Include=".vs\NoTImeEditorAdditions\v17\.suo" />
+    <None Include=".vs\NoTImeEditorAdditions\v17\DocumentLayout.backup.json" />
+    <None Include=".vs\NoTImeEditorAdditions\v17\DocumentLayout.json" />
+    <None Include="NoTimeEditorAdditorMod.dll.lnk" />
+    <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EditorAdditor.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".git\ms-persist.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include=".git\objects\info\" />
+    <Folder Include=".git\objects\pack\" />
+    <Folder Include=".vs\EditorAdditorMelon\v17\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
+  <ProjectExtensions>
+    <VisualStudio AllowExistingFolder="true" />
+  </ProjectExtensions>
+</Project>
